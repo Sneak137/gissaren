@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+<title>Gissaren!</title>
+<meta charset="utf-8">
+</head>
+<body>
+  <form id="form-guess">
+    <label>Gissa på ett nummer mellan 1-100, vad är din gissning?</label><br>
+    <input type="text" id="guessinput">
+    <input type="submit" id="submitinput" value="Guess">
+    <button type="reset">Starta om</button>
+  </form>
+
+  <div id="feedback"></div>
+
+
+<script>
+
+    let number = Math.floor(Math.random() * 100 + 1);
+    let guessedTimes = 0;
+    const form = document.getElementById('form-guess');
+    const reset = document.getElementById('reset');
+    const feedback = document.getElementById('feedback')
+
+    form.addEventListener('reset', (e) => {
+      resetGame();
+    });
+      
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      feedback.textContent = '';
+
+      const guessInput = document.getElementById("guessinput");
+      const guess = guessInput.value;
+      guessedTimes++;
+
+
+      if(guess == number){
+         feedback.textContent = "Du har gissat rätt! på " + guessedTimes + " antal försök";
+         guessedTimes = 0;
+      } else if (guess > number){
+         feedback.textContent = "Din gissning är för hög";
+      } else {
+         feedback.textContent = "Din gissning är för låg";
+      }
+
+       guessInput.value = '';
+    });
+
+    const resetGame = () => {
+      guessedTimes = 0;
+      number = Math.floor(Math.random() * 100 + 1);
+      feedback.textContent = '';
+    }
+
+</script>
+</body>
+</html>
